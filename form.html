@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,16 +12,17 @@
     <div class="container">
         <h1>Pre-Joining Employee Information</h1>
         <p class="lead">Please complete all sections. Use <strong>Next</strong> to move forward and
-            <strong>Previous</strong> to go back.</p>
+            <strong>Previous</strong> to go back.
+        </p>
 
-        <div class="progress" aria-hidden>
+        <div class="progress" aria-hidden="true">
             <div class="step active" data-step="0">Personal</div>
             <div class="step" data-step="1">Identification</div>
-            <div class="step" data-step="2">Education & Employment</div>
-            <div class="step" data-step="3">Banking & Tax</div>
+            <div class="step" data-step="2">Education &amp; Employment</div>
+            <div class="step" data-step="3">Banking &amp; Tax</div>
         </div>
 
-        <form id="onboardingForm" novalidate>
+        <form id="onboardingForm" novalidate enctype="multipart/form-data">
             <!-- PART 1: Personal Information -->
             <fieldset class="active" data-part="1">
                 <h2>1. Personal Information</h2>
@@ -48,20 +49,20 @@
                         <label for="mobile">Mobile number</label>
                         <input id="mobile" name="mobile" type="text" placeholder="+91 98765 43210" />
                     </div>
-                    <div style="grid-column:1/3">
+                    <div class="span-2">
                         <label for="email">Personal email address</label>
                         <input id="email" name="email" type="email" />
                     </div>
-                    <div style="grid-column:1/3">
+                    <div class="span-2">
                         <label for="currentAddress">Current address</label>
                         <textarea id="currentAddress" name="currentAddress"></textarea>
                     </div>
-                    <div style="grid-column:1/3">
+                    <div class="span-2">
                         <label for="permanentAddress">Permanent address</label>
                         <textarea id="permanentAddress" name="permanentAddress"></textarea>
                     </div>
-                    <div style="grid-column:1/3">
-                        <label for="emergencyContact">Emergency contact name & number</label>
+                    <div class="span-2">
+                        <label for="emergencyContact">Emergency contact name &amp; number</label>
                         <input id="emergencyContact" name="emergencyContact" type="text" />
                     </div>
                 </div>
@@ -73,72 +74,73 @@
                 <p class="small">Indicate whether you can provide each document and optionally add details.</p>
                 <div class="grid">
                     <div>
-                        <label>Driving License</label>
-                        <input type="text" name="drivingLicense" placeholder="License number / N/A" />
+                        <label for="drivingLicense">Driving License</label>
+                        <input id="drivingLicense" type="text" name="drivingLicense"
+                            placeholder="License number / N/A" />
                     </div>
                     <div>
-                        <label>Bike (Registration)</label>
-                        <input type="text" name="bike" placeholder="Registration / N/A" />
+                        <label for="bike">Bike (Registration)</label>
+                        <input id="bike" type="text" name="bike" placeholder="Registration / N/A" />
                     </div>
                     <div>
-                        <label>Aadhaar Card</label>
-                        <input type="text" name="aadhaar" placeholder="Aadhaar number / N/A" />
+                        <label for="aadhaar">Aadhaar Card</label>
+                        <input id="aadhaar" type="text" name="aadhaar" placeholder="Aadhaar number / N/A" />
                     </div>
                     <div>
-                        <label>PAN Card</label>
-                        <input type="text" name="pan" placeholder="PAN number / N/A" />
+                        <label for="pan">PAN Card</label>
+                        <input id="pan" type="text" name="pan" placeholder="PAN number / N/A" />
                     </div>
-                    <div style="grid-column:1/3">
-                        <label>Passport-size photograph</label>
-                        <input type="file" name="photo" accept="image/*" />
+                    <div class="span-2">
+                        <label for="photo">Passport-size photograph</label>
+                        <input id="photo" type="file" name="photo" accept="image/*" />
                     </div>
                 </div>
             </fieldset>
 
             <!-- PART 3: Education & Employment -->
             <fieldset data-part="3">
-                <h2>3. Education & Employment Documents</h2>
+            <h2>3. Education &amp; Employment Documents</h2>
                 <div class="grid">
-                    <div style="grid-column:1/3">
-                        <label>Resume / CV (upload)</label>
-                        <input type="file" name="resume" accept=".pdf,.doc,.docx" />
+                    <div class="span-2">
+                        <label for="resume">Resume / CV (upload)</label>
+                        <input id="resume" type="file" name="resume" accept=".pdf,.doc,.docx" />
                     </div>
-                    <div style="grid-column:1/3">
-                        <label>Educational certificates (list)</label>
-                        <input type="text" name="educationList" placeholder="e.g. B.Tech - University XYZ" />
-                    </div>
-                    <div>
-                        <label>Previous employment experience letters</label>
-                        <input type="file" name="experienceLetters" multiple />
+                    <div class="span-2">
+                        <label for="educationList">Educational certificates (list)</label>
+                        <input id="educationList" type="text" name="educationList"
+                            placeholder="e.g. B.Tech - University XYZ" />
                     </div>
                     <div>
-                        <label>Relieving letter from last employer</label>
-                        <input type="file" name="relievingLetter" />
+                        <label for="experienceLetters">Previous employment experience letters</label>
+                        <input id="experienceLetters" type="file" name="experienceLetters" multiple />
                     </div>
-                    <div style="grid-column:1/3">
-                        <label>Last 3–6 months’ salary slips</label>
-                        <input type="file" name="salarySlips" multiple />
+                    <div>
+                        <label for="relievingLetter">Relieving letter from last employer</label>
+                        <input id="relievingLetter" type="file" name="relievingLetter" />
+                    </div>
+                    <div class="span-2">
+                        <label for="salarySlips">Last 3-6 months' salary slips</label>
+                        <input id="salarySlips" type="file" name="salarySlips" multiple />
                     </div>
                 </div>
             </fieldset>
-
             <!-- PART 4: Banking & Tax Details -->
             <fieldset data-part="4">
-                <h2>4. Banking & Tax Details</h2>
+                <h2>4. Banking &amp; Tax Details</h2>
                 <div class="grid">
                     <div>
                         <label for="bankAccount">Bank account number</label>
                         <input id="bankAccount" name="bankAccount" type="text" />
                     </div>
                     <div>
-                        <label for="bankName">Bank name & branch</label>
+                        <label for="bankName">Bank name &amp; branch</label>
                         <input id="bankName" name="bankName" type="text" />
                     </div>
-                    <div style="grid-column:1/3">
+                    <div class="span-2">
                         <label for="ifsc">IFSC code</label>
                         <input id="ifsc" name="ifsc" type="text" />
                     </div>
-                    <div style="grid-column:1/3">
+                    <div class="span-2">
                         <label for="taxDetails">Any tax / PAN notes</label>
                         <input id="taxDetails" name="taxDetails" type="text" />
                     </div>
@@ -146,7 +148,7 @@
             </fieldset>
 
             <div class="actions">
-                <button type="button" id="prevBtn" class="btn ghost" style="visibility:hidden">Previous</button>
+                <button type="button" id="prevBtn" class="btn ghost">Previous</button>
                 <div>
                     <button type="button" id="saveDraft" class="btn ghost">Save Draft</button>
                     <button type="button" id="nextBtn" class="btn">Next</button>
@@ -180,35 +182,57 @@
             const required = Array.from(current.querySelectorAll('[required]'));
             let ok = true;
             for (const el of required) {
-                if (!el.value) { el.style.outline = '2px solid rgba(255,60,60,0.18)'; ok = false }
-                else el.style.outline = '';
+                if (!el.value) {
+                    el.style.outline = '2px solid rgba(255,60,60,0.18)';
+                    ok = false;
+                } else {
+                    el.style.outline = '';
+                }
             }
             if (!ok) return;
 
-            if (idx < fieldsets.length - 1) { idx++; updateUI(); }
-            else {
+            if (idx < fieldsets.length - 1) {
+                idx++;
+                updateUI();
+            } else {
                 // submit - collect data
                 const data = new FormData(form);
                 // You can send `data` via fetch to server. For demo show a confirmation.
                 const preview = {};
-                for (const [k, v] of data.entries()) preview[k] = v instanceof File ? v.name : v;
+                for (const [k, v] of data.entries()) {
+                    preview[k] = v instanceof File ? v.name : v;
+                }
                 alert('Form submitted. (Demo)\nCheck console for collected data.');
                 console.log('Collected form data:', preview);
             }
         });
 
-        prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; updateUI(); } });
+        prevBtn.addEventListener('click', () => {
+            if (idx > 0) {
+                idx--;
+                updateUI();
+            }
+        });
 
         saveBtn.addEventListener('click', () => {
             // Save to localStorage as draft
             const data = {};
-            new FormData(form).forEach((v, k) => data[k] = v instanceof File ? v.name : v);
-            try { localStorage.setItem('onboardingDraft', JSON.stringify(data)); alert('Draft saved locally.') }
-            catch (e) { alert('Could not save draft.') }
+            new FormData(form).forEach((v, k) => {
+                data[k] = v instanceof File ? v.name : v;
+            });
+            try {
+                localStorage.setItem('onboardingDraft', JSON.stringify(data));
+                alert('Draft saved locally.');
+            } catch (e) {
+                alert('Could not save draft.');
+            }
         });
 
         // allow clicking progress steps
-        steps.forEach((s, i) => s.addEventListener('click', () => { idx = i; updateUI(); }));
+        steps.forEach((s, i) => s.addEventListener('click', () => {
+            idx = i;
+            updateUI();
+        }));
         updateUI();
     </script>
 </body>
