@@ -154,7 +154,7 @@ app.post(
                 message: 'Employee data saved successfully'
             });
         } catch (err) {
-            console.error('❌ Error saving employee:', err);
+            console.error('Error saving employee:', err);
             res
                 .status(500)
                 .json({ success: false, message: 'Server / DB error', error: err.message });
@@ -170,7 +170,7 @@ app.get('/api/employees', async (req, res) => {
         );
         res.json({ success: true, data: rows });
     } catch (err) {
-        console.error('❌ Error fetching employees:', err);
+        console.error('Error fetching employees:', err);
         res
             .status(500)
             .json({ success: false, message: 'Server / DB error', error: err.message });
@@ -237,14 +237,14 @@ app.get('/api/employees/export', async (req, res) => {
         );
         res.send(csv);
     } catch (err) {
-        console.error('❌ Error exporting CSV:', err);
+        console.error('Error exporting CSV:', err);
         res.status(500).send('Server / DB error');
     }
 });
 
 // start the HTTP server and immediately test the DB connection
 app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
     console.log('Open http://localhost:4000/form.html in your browser.');
     testDbConnection();
 });
