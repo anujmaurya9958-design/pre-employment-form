@@ -2,243 +2,264 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pre-Joining Employee Information Form</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pre-Joining Employee Information Form</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="header">
-        <img src="logo.png" alt="Company Logo">
+  <div class="header">
+    <img src="logo.png" alt="Company Logo">
+  </div>
+
+  <div class="container">
+    <h1>Pre-Joining Employee Information</h1>
+    <p class="lead">
+      Please complete all sections. Use <strong>Next</strong> to move forward and
+      <strong>Previous</strong> to go back.
+    </p>
+
+    <div class="progress" aria-hidden="true">
+      <div class="step active" data-step="0">Personal</div>
+      <div class="step" data-step="1">Identification</div>
+      <div class="step" data-step="2">Education & Employment</div>
+      <div class="step" data-step="3">Banking & Tax</div>
     </div>
 
-    <div class="container">
-        <h1>Pre-Joining Employee Information</h1>
-        <p class="lead">
-            Please complete all sections. Use <strong>Next</strong> to move forward and
-            <strong>Previous</strong> to go back.
-        </p>
+    <!-- enctype required for file uploads -->
+    <form id="onboardingForm" novalidate enctype="multipart/form-data">
+      <!-- PART 1: Personal Information -->
+      <fieldset class="active" data-part="1">
+        <h2>1. Personal Information</h2>
+        <div class="grid">
+          <div>
+            <label for="fullName">Full name (as per ID) <span class="req">*</span></label>
+            <input id="fullName" name="fullName" type="text" required placeholder="Full name as per ID" title="Full name as per ID" />
+          </div>
 
-        <div class="progress" aria-hidden="true">
-            <div class="step active" data-step="0">Personal</div>
-            <div class="step" data-step="1">Identification</div>
-            <div class="step" data-step="2">Education & Employment</div>
-            <div class="step" data-step="3">Banking & Tax</div>
-        </div>
+          <div>
+            <label for="dob">Date of birth <span class="req">*</span></label>
+            <input id="dob" name="dob" type="date" required title="Date of birth" />
+          </div>
 
-        <form id="onboardingForm" novalidate>
-            <!-- PART 1: Personal Information -->
-            <fieldset class="active" data-part="1">
-                <h2>1. Personal Information</h2>
-                <div class="grid">
-                    <div>
-                        <label for="fullName">Full name (as per ID) <span class="req">*</span></label>
-                        <input id="fullName" name="fullName" type="text" required />
-                    </div>
-                    <div>
-                        <label for="dob">Date of birth <span class="req">*</span></label>
-                        <input id="dob" name="dob" type="date" required />
-                    </div>
-                    <div>
-                        <label for="gender">Gender <span class="req">*</span></label>
-                        <select id="gender" name="gender" required>
-                            <option value="">Select</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                            <option>Prefer not to say</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="mobile">Mobile number <span class="req">*</span></label>
-                        <input id="mobile" name="mobile" type="text" placeholder="+91 00000 00000" required />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label for="email">Personal email address <span class="req">*</span></label>
-                        <input id="email" name="email" type="email" required />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label for="currentAddress">Current address <span class="req">*</span></label>
-                        <textarea id="currentAddress" name="currentAddress" required></textarea>
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label for="permanentAddress">Permanent address</label>
-                        <div class="address-row">
-                            <button type="button" id="sameascurrent-add" class="btn-small">
-                                Same as current address
-                            </button>
-                            <textarea id="permanentAddress" name="permanentAddress"></textarea>
-                        </div>
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label for="emergencyContact">Emergency contact name & number</label>
-                        <input id="emergencyContact" name="emergencyContact" type="text" />
-                    </div>
-                </div>
-            </fieldset>
+          <div>
+            <label for="gender">Gender <span class="req">*</span></label>
+            <select id="gender" name="gender" required title="Gender">
+              <option value="">Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
 
-            <!-- PART 2: Identification Documents -->
-            <fieldset data-part="2">
-                <h2>2. Identification Documents</h2>
-                <p class="small">Fields marked with <span class="req">*</span> are mandatory.</p>
-                <div class="grid">
-                    <div>
-                        <label>Aadhaar Card <span class="req">*</span></label>
-                        <input type="text" name="aadhaar" placeholder="Aadhaar number" required />
-                    </div>
-                    <div>
-                        <label>PAN Card <span class="req">*</span></label>
-                        <input type="text" name="pan" placeholder="PAN number" required />
-                    </div>
-                    <div>
-                        <label>Driving License</label>
-                        <input type="text" name="drivingLicense" placeholder="License number / N/A" />
-                    </div>
-                    <div>
-                        <label>Bike (Registration)</label>
-                        <input type="text" name="bike" placeholder="Registration / N/A" />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label>Passport-size photograph <span class="req">*</span></label>
-                        <input type="file" name="photo" accept="image/*" required />
-                    </div>
-                </div>
-            </fieldset>
+          <div>
+            <label for="mobile">Mobile number <span class="req">*</span></label>
+            <input id="mobile" name="mobile" type="tel" placeholder="+91 00000 00000" required title="Mobile number" />
+          </div>
 
-            <!-- PART 3: Education & Employment -->
-            <fieldset data-part="3">
-                <h2>3. Education & Employment Documents</h2>
-                <div class="grid">
-                    <div style="grid-column:1/3">
-                        <label>Resume / CV (upload) <span class="req">*</span></label>
-                        <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label>Educational certificates (list)</label>
-                        <input type="text" name="educationList" placeholder="e.g. B.Tech - University XYZ" />
-                    </div>
-                    <div>
-                        <label>Previous employment experience letters</label>
-                        <input type="file" name="experienceLetters" multiple />
-                    </div>
-                    <div>
-                        <label>Relieving letter from last employer</label>
-                        <input type="file" name="relievingLetter" />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label>Last 3–6 months’ salary slips</label>
-                        <input type="file" name="salarySlips" multiple />
-                    </div>
-                </div>
-            </fieldset>
+          <div class="span-2">
+            <label for="email">Personal email address <span class="req">*</span></label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" title="Personal email address" />
+          </div>
 
-            <!-- PART 4: Banking & Tax Details -->
-            <fieldset data-part="4">
-                <h2>4. Banking & Tax Details</h2>
-                <div class="grid">
-                    <div>
-                        <label for="bankAccount">Bank account number <span class="req">*</span></label>
-                        <input id="bankAccount" name="bankAccount" type="text" required />
-                    </div>
-                    <div>
-                        <label for="bankName">Bank name & branch <span class="req">*</span></label>
-                        <input id="bankName" name="bankName" type="text" required />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label for="ifsc">IFSC code <span class="req">*</span></label>
-                        <input id="ifsc" name="ifsc" type="text" required />
-                    </div>
-                    <div style="grid-column:1/3">
-                        <label for="taxDetails">Any tax / PAN notes</label>
-                        <input id="taxDetails" name="taxDetails" type="text" />
-                    </div>
-                </div>
-            </fieldset>
+          <div class="span-2">
+            <label for="currentAddress">Current address <span class="req">*</span></label>
+            <textarea id="currentAddress" name="currentAddress" required placeholder="Flat / Street / City / Pincode" title="Current address"></textarea>
+          </div>
 
-            <div class="actions">
-                <button type="button" id="prevBtn" class="btn ghost" style="visibility:hidden">Previous</button>
-                <div>
-                    <button type="button" id="nextBtn" class="btn">Next</button>
-                </div>
+          <div class="span-2">
+            <label for="permanentAddress">Permanent address</label>
+            <div class="address-row">
+              <button type="button" id="sameascurrent-add" class="btn-small" aria-controls="permanentAddress">Same as current address</button>
+              <textarea id="permanentAddress" name="permanentAddress" placeholder="Permanent address or click 'Same as current address'" title="Permanent address"></textarea>
             </div>
-        </form>
+          </div>
 
-        <footer class="note">This form is based on the Pre-Joining checklist provided for onboarding.</footer>
-    </div>
+          <div class="span-2">
+            <label for="emergencyContact">Emergency contact name & number</label>
+            <input id="emergencyContact" name="emergencyContact" type="text" placeholder="Name - +91 98xxxxxxx" title="Emergency contact" />
+          </div>
+        </div>
+      </fieldset>
 
-    <script>
-        // "Same as current address" button
-        const sameAsCurrentBtn = document.getElementById('sameascurrent-add');
-        const currentAddress = document.getElementById('currentAddress');
-        const permanentAddress = document.getElementById('permanentAddress');
+      <!-- PART 2: Identification Documents -->
+      <fieldset data-part="2">
+        <h2>2. Identification Documents</h2>
+        <p class="small">Fields marked with <span class="req">*</span> are mandatory.</p>
+        <div class="grid">
+          <div>
+            <label for="aadhaar">Aadhaar Card <span class="req">*</span></label>
+            <input id="aadhaar" name="aadhaar" type="text" placeholder="Aadhaar number" required title="Aadhaar number" />
+          </div>
 
-        sameAsCurrentBtn.addEventListener('click', () => {
-            permanentAddress.value = currentAddress.value;
-        });
+          <div>
+            <label for="pan">PAN Card <span class="req">*</span></label>
+            <input id="pan" name="pan" type="text" placeholder="PAN number" required title="PAN number" />
+          </div>
 
-        // Simple multi-step form logic
-        const form = document.getElementById('onboardingForm');
-        const fieldsets = Array.from(form.querySelectorAll('fieldset'));
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const steps = Array.from(document.querySelectorAll('.step'));
-        let idx = 0;
+          <div>
+            <label for="drivingLicense">Driving License</label>
+            <input id="drivingLicense" name="drivingLicense" type="text" placeholder="License number / N/A" title="Driving license number" />
+          </div>
 
-        function updateUI() {
-            fieldsets.forEach((fs, i) => fs.classList.toggle('active', i === idx));
-            steps.forEach((s, i) => s.classList.toggle('active', i === idx));
-            prevBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
-            nextBtn.textContent = idx === fieldsets.length - 1 ? 'Submit' : 'Next';
+          <div>
+            <label for="bike">Bike (Registration)</label>
+            <input id="bike" name="bike" type="text" placeholder="Registration / N/A" title="Bike registration" />
+          </div>
+
+          <div class="span-2">
+            <label for="photo">Passport-size photograph <span class="req">*</span></label>
+            <input id="photo" name="photo" type="file" accept="image/*" required title="Upload passport-size photo" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- PART 3: Education & Employment -->
+      <fieldset data-part="3">
+        <h2>3. Education & Employment Documents</h2>
+        <div class="grid">
+          <div class="span-2">
+            <label for="resume">Resume / CV (upload) <span class="req">*</span></label>
+            <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx" required title="Upload resume or CV" />
+          </div>
+
+          <div class="span-2">
+            <label for="educationList">Educational certificates (list)</label>
+            <input id="educationList" name="educationList" type="text" placeholder="e.g. B.Tech - University XYZ" title="Educational certificates" />
+          </div>
+
+          <div>
+            <label for="experienceLetters">Previous employment experience letters</label>
+            <input id="experienceLetters" name="experienceLetters" type="file" multiple title="Upload experience letters" />
+          </div>
+
+          <div>
+            <label for="relievingLetter">Relieving letter from last employer</label>
+            <input id="relievingLetter" name="relievingLetter" type="file" title="Upload relieving letter" />
+          </div>
+
+          <div class="span-2">
+            <label for="salarySlips">Last 3-6 months' salary slips</label>
+            <input id="salarySlips" name="salarySlips" type="file" multiple title="Upload salary slips" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- PART 4: Banking & Tax Details -->
+      <fieldset data-part="4">
+        <h2>4. Banking & Tax Details</h2>
+        <div class="grid">
+          <div>
+            <label for="bankAccount">Bank account number <span class="req">*</span></label>
+            <input id="bankAccount" name="bankAccount" type="text" required placeholder="Account number" title="Bank account number" />
+          </div>
+
+          <div>
+            <label for="bankName">Bank name & branch <span class="req">*</span></label>
+            <input id="bankName" name="bankName" type="text" required placeholder="Bank name, branch" title="Bank name and branch" />
+          </div>
+
+          <div class="span-2">
+            <label for="ifsc">IFSC code <span class="req">*</span></label>
+            <input id="ifsc" name="ifsc" type="text" required placeholder="IFSC code" title="IFSC code" />
+          </div>
+
+          <div class="span-2">
+            <label for="taxDetails">Any tax / PAN notes</label>
+            <input id="taxDetails" name="taxDetails" type="text" placeholder="Tax / PAN notes" title="Tax or PAN related notes" />
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <!-- use class "hidden" instead of inline style -->
+        <button type="button" id="prevBtn" class="btn ghost hidden">Previous</button>
+        <div>
+          <button type="button" id="nextBtn" class="btn">Next</button>
+        </div>
+      </div>
+    </form>
+
+    <footer class="note">This form is based on the Pre-Joining checklist provided for onboarding.</footer>
+  </div>
+
+  <script>
+    // "Same as current address" button
+    const sameAsCurrentBtn = document.getElementById('sameascurrent-add');
+    const currentAddress = document.getElementById('currentAddress');
+    const permanentAddress = document.getElementById('permanentAddress');
+
+    if (sameAsCurrentBtn && currentAddress && permanentAddress) {
+      sameAsCurrentBtn.addEventListener('click', () => {
+        permanentAddress.value = currentAddress.value;
+      });
+    }
+
+    // Simple multi-step form logic
+    const form = document.getElementById('onboardingForm');
+    const fieldsets = Array.from(form.querySelectorAll('fieldset'));
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const steps = Array.from(document.querySelectorAll('.step'));
+    let idx = 0;
+
+    function updateUI() {
+      fieldsets.forEach((fs, i) => fs.classList.toggle('active', i === idx));
+      steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+      // show/hide previous button by adding/removing class
+      if (idx === 0) prevBtn.classList.add('hidden'); else prevBtn.classList.remove('hidden');
+      nextBtn.textContent = idx === fieldsets.length - 1 ? 'Submit' : 'Next';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      // basic required check for visible inputs
+      const current = fieldsets[idx];
+      const required = Array.from(current.querySelectorAll('[required]'));
+      let ok = true;
+      for (const el of required) {
+        if (!el.value) {
+          el.style.outline = '2px solid rgba(239, 68, 68, 0.6)';
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          ok = false;
+          break;
+        } else {
+          el.style.outline = '';
         }
+      }
+      if (!ok) return;
 
-        nextBtn.addEventListener('click', () => {
-            // basic required check for visible inputs
-            const current = fieldsets[idx];
-            const required = Array.from(current.querySelectorAll('[required]'));
-            let ok = true;
-            for (const el of required) {
-                if (!el.value) {
-                    el.style.outline = '2px solid rgba(239, 68, 68, 0.6)';
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    ok = false;
-                    break;
-                } else {
-                    el.style.outline = '';
-                }
-            }
-            if (!ok) return;
-
-            if (idx < fieldsets.length - 1) {
-                idx++;
-                updateUI();
-            } else {
-                // submit - collect data
-                const data = new FormData(form);
-                const preview = {};
-                for (const [k, v] of data.entries()) preview[k] = v instanceof File ? v.name : v;
-                alert('Form submitted. (Demo)\nCheck console for collected data.');
-                console.log('Collected form data:', preview);
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (idx > 0) {
-                idx--;
-                updateUI();
-            }
-        });
-
-        // allow clicking progress steps
-        steps.forEach((s, i) =>
-            s.addEventListener('click', () => {
-                idx = i;
-                updateUI();
-            })
-        );
-
+      if (idx < fieldsets.length - 1) {
+        idx++;
         updateUI();
-    </script>
+      } else {
+        // submit - collect data
+        const data = new FormData(form);
+        const preview = {};
+        for (const [k, v] of data.entries()) preview[k] = v instanceof File ? v.name : v;
+        alert('Form submitted. (Demo)\nCheck console for collected data.');
+        console.log('Collected form data:', preview);
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (idx > 0) {
+        idx--;
+        updateUI();
+      }
+    });
+
+    // allow clicking progress steps
+    steps.forEach((s, i) =>
+      s.addEventListener('click', () => {
+        idx = i;
+        updateUI();
+      })
+    );
+
+    updateUI();
+  </script>
 </body>
 
 </html>
