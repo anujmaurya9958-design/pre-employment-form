@@ -186,80 +186,140 @@
   </div>
 
   <script>
-    // "Same as current address" button
-    const sameAsCurrentBtn = document.getElementById('sameascurrent-add');
-    const currentAddress = document.getElementById('currentAddress');
-    const permanentAddress = document.getElementById('permanentAddress');
+  // Same-as-current-address button (safe checks)
+  const sameAsCurrentBtn = document.getElementById('sameascurrent-add');
+  const currentAddress = document.getElementById('currentAddress');
+  const permanentAddress = document.getElementById('permanentAddress');
 
-    if (sameAsCurrentBtn && currentAddress && permanentAddress) {
-      sameAsCurrentBtn.addEventListener('click', () => {
-        permanentAddress.value = currentAddress.value;
-      });
-    }
+  if (sameAsCurrentBtn && currentAddress && permanentAddress) {
+    sameAsCurrentBtn.addEventListener('click', () => {
+      permanentAddress.value = currentAddress.value;
+    });
+  }
 
-    // Simple multi-step form logic
-    const form = document.getElementById('onboardingForm');
-    const fieldsets = Array.from(form.querySelectorAll('fieldset'));
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const steps = Array.from(document.querySelectorAll('.step'));
-    let idx = 0;
+  // Multi-step form elements
+  const form = document.getElementById('onboardingForm');
+  const fieldsets = form ? Array.from(form.querySelectorAll('fieldset')) : [];
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const steps = Array.from(document.querySelectorAll('.step'));
+  let idx = 0;
 
-    function updateUI() {
-      fieldsets.forEach((fs, i) => fs.classList.toggle('active', i === idx));
-      steps.forEach((s, i) => s.classList.toggle('active', i === idx));
-      // show/hide previous button by adding/removing class
-      if (idx === 0) prevBtn.classList.add('hidden'); else prevBtn.classList.remove('hidden');
-      nextBtn.textContent = idx === fieldsets.length - 1 ? 'Submit' : 'Next';
-    }
+  // small helper to toggle disabled state for actions while submitting
+  function setSubmitting(isSubmitting) {
+    if (nextBtn) nextBtn.disabled = isSubmitting;
+    if (prevBtn) prevBtn.disabled = isSubmitting;
+  }
 
-    nextBtn.addEventListener('click', () => {
-      // basic required check for visible inputs
-      const current = fieldsets[idx];
-      const required = Array.from(current.querySelectorAll('[required]'));
-      let ok = true;
-      for (const el of required) {
-        if (!el.value) {
-          el.style.outline = '2px solid rgba(239, 68, 68, 0.6)';
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          ok = false;
-          break;
-        } else {
-          el.style.outline = '';
-        }
+  function updateUI() {
+    fieldsets.forEach((fs, i) => fs.classList.toggle('active', i === idx));
+    steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+    // show/hide previous button by adding/removing class "hidden"
+    if (idx === 0) prevBtn.classList.add('hidden'); else prevBtn.classList.remove('hidden');
+    nextBtn.textContent = idx === fieldsets.length - 1 ? 'Submit' : 'Next';
+  }
+
+  // Basic front-end required validation for visible step
+  function validateCurrentStep() {
+    const current = fieldsets[idx];
+    const required = Array.from(current.querySelectorAll('[required]'));
+    for (const el of required) {
+      if (!el.value) {
+        el.style.outline = '2px solid rgba(239, 68, 68, 0.6)';
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      } else {
+        el.style.outline = '';
       }
+    }
+    return true;
+  }
+
+  // Submit handler: send FormData to backend
+  async function submitFormData(formElement) {
+    try {
+      setSubmitting(true);
+      const data = new FormData(formElement);
+
+      // Optional: add a small client-side sanity check (example: ensure fullName exists)
+      if (!data.get('fullName')) {
+        alert('Please provide Full name.');
+        return;
+      }
+
+      const res = await fetch('/api/employees', {
+        method: 'POST',
+        body: data
+      });
+
+      // Try to parse JSON response (server sends JSON on success/failure)
+      const json = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        const msg = json && json.message ? json.message : 'Server returned an error';
+        throw new Error(msg);
+      }
+
+      if (json && json.success) {
+        alert('Form submitted successfully! Employee ID: ' + json.id);
+        formElement.reset();
+        idx = 0;
+        updateUI();
+      } else {
+        const msg = json && json.message ? json.message : 'Submission failed';
+        alert(msg);
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      alert('An error occurred while submitting the form: ' + (err.message || err));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  // Next button click
+  if (nextBtn) {
+    nextBtn.addEventListener('click', async () => {
+      if (!form) return;
+
+      // validate visible fields
+      const ok = validateCurrentStep();
       if (!ok) return;
 
+      // if not last step just go to next
       if (idx < fieldsets.length - 1) {
         idx++;
         updateUI();
-      } else {
-        // submit - collect data
-        const data = new FormData(form);
-        const preview = {};
-        for (const [k, v] of data.entries()) preview[k] = v instanceof File ? v.name : v;
-        alert('Form submitted. (Demo)\nCheck console for collected data.');
-        console.log('Collected form data:', preview);
+        return;
       }
-    });
 
+      // last step -> submit
+      await submitFormData(form);
+    });
+  }
+
+  // Prev button click
+  if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       if (idx > 0) {
         idx--;
         updateUI();
       }
     });
+  }
 
-    // allow clicking progress steps
-    steps.forEach((s, i) =>
-      s.addEventListener('click', () => {
-        idx = i;
-        updateUI();
-      })
-    );
+  // allow clicking progress steps
+  steps.forEach((s, i) =>
+    s.addEventListener('click', () => {
+      idx = i;
+      updateUI();
+    })
+  );
 
-    updateUI();
-  </script>
+  // initialize UI
+  updateUI();
+</script>
+
 </body>
 
 </html>
